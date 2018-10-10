@@ -1,0 +1,54 @@
+{
+    "name": "esaving",
+    "version": "1.0.0",
+    "description": "ESaving",
+    "main": "lib/server.js",
+    "author": "Minh Chau",
+    "license": "MIT",
+    "scripts": {
+        "start": "npm run dev&& npm run webpack",
+        "dev": "set NODE_PATH=./lib&& nodemon --exec babel-node lib/server.js --watch",
+        "webpack": "webpack -wd",
+        "test": "jest --watch"
+    },
+    "devDependencies": {
+        "babel-eslint": "^8.2.3",
+        "eslint": "^4.19.1",
+        "eslint-plugin-react": "^7.8.2",
+        "jest": "^23.1.0",
+        "react-redux": "^5.0.7",
+        "webpack-cli": "^3.0.1"
+    },
+    "babel": {
+        "presets": [
+            "react",
+            "env",
+            "stage-2"
+        ]
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "babel-cli": "^6.26.0",
+        "babel-loader": "^7.1.4",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-react": "^6.24.1",
+        "babel-preset-stage-2": "^6.24.1",
+        "ejs": "^2.6.1",
+        "enzyme": "^3.3.0",
+        "express": "^4.16.3",
+        "lodash": "^4.17.11",
+        "lodash.debounce": "^4.0.8",
+        "lodash.pickby": "^4.6.0",
+        "prop-types": "^15.6.2",
+        "react": "^16.4.0",
+        "react-dom": "^16.4.0",
+        "react-router": "^4.3.1",
+        "react-router-dom": "^4.3.1",
+        "react-test-renderer": "^16.4.1",
+        "redux": "^4.0.0",
+        "redux-immutable-state-invariant": "^2.1.0",
+        "redux-thunk": "^2.3.0",
+        "webpack": "^4.10.2"
+    }
+}
