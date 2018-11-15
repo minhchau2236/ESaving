@@ -1,20 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 import routes from '../routes';
 import App from '../components/App';
 import configureStore from '../store/configureStore';
 import { Provider } from 'react-redux';
 import * as outcomeCategoryActions from '../store/actions/outcomeCategoryActions';
+import history from '../services/history';
+
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../assets/css/style.css';
 
 const store = configureStore();
 store.dispatch(outcomeCategoryActions.loadCategories());
 
-ReactDOM.render(
-  <BrowserRouter routes={routes}>
+const render = (Component) => {
+  ReactDOM.render(
     <Provider store={store}>
-      <App />
-    </Provider>
-  </BrowserRouter>,
-  document.getElementById('root')
-);
+      <Router history={history}>
+        <Component />
+      </Router>
+    </Provider>,
+    document.getElementById('root')
+  );
+};
+
+render(App);

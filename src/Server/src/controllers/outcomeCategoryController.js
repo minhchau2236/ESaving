@@ -1,44 +1,45 @@
 
-const outcomeCategoryService = require('../services/outcomeCategoryService');
 
-function outcomeCategoryController() {
+
+function outcomeCategoryController(sequelize) {
+  const outcomeCategoryService = require('../services/OutcomeCategoryService')(sequelize);
   function get(req, res) {
     (async function query() {
-      const responseData = await outcomeCategoryService().get();
-      const result = {
-        data: responseData.recordset,
-      };
-      res.status(200).json(result);
+      const responseData = await outcomeCategoryService.get();
+      // const result = {
+      //   data: responseData.recordset,
+      // };
+      res.status(200).json(responseData);
     }());
   }
 
   function save(req, res) {
     (async function query() {
-      const responseData = await outcomeCategoryService().save(req.body);
-      const result = {
-        data: responseData,
-      };
-      res.status(201).json(result);
+      const responseData = await outcomeCategoryService.save(req.body);
+      // const result = {
+      //   data: responseData,
+      // };
+      res.status(201).json(responseData);
     }());
   }
 
   function getById(req, res) {
     (async function query() {
-      const responseData = await outcomeCategoryService().getById(req.params.id);
-      const result = {
-        data: responseData,
-      };
-      res.status(200).json(result);
+      const responseData = await outcomeCategoryService.getById(req.params.id);
+      // const result = {
+      //   data: responseData,
+      // };
+      res.status(200).json(responseData);
     }());
   }
 
   function remove(req, res) {
     (async function query() {
-      const responseData = await outcomeCategoryService().remove(req.params.id);
-      const result = {
-        data: responseData,
-      };
-      res.status(204).json(result);
+      const responseData = await outcomeCategoryService.remove(req.params.id);
+      // const result = {
+      //   data: responseData,
+      // };
+      res.status(204).json(responseData);
     }());
   }
   return {

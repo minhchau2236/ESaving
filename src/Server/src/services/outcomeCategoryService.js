@@ -1,17 +1,20 @@
 const debug = require('debug')('app:outcomeCategoryService');
 const sql = require('mssql');
 
-function outcomeCategoryService() {
+function outcomeCategoryService(sequelize) {
+  const Category = require('../models/outcomeCategoryModel')(sequelize);
   function get() {
     return new Promise((resolve, reject) => {
       const request = new sql.Request();
-      request.query('select * from Category', (err, result) => {
-        if (err) {
-          reject(err);
-        }
-        debug(result);
-        resolve(result);
+      Category.findAll().then((categories) => {
+        resolve(categories);
       });
+      // request.query('select * from Category', (err, result) => {
+      //   if (err) {
+      //     reject(err);
+      //   }
+      //   resolve(result);
+      // });
     });
   }
 
@@ -27,14 +30,12 @@ function outcomeCategoryService() {
         set Category.name = @name
         where Category.id = @id`;
       }
-      debug(data.id);
       request.input('name', sql.NVarChar, data.name)
         .input('id', sql.Int, data.id)
         .query(queryString, (err) => {
           if (err) {
             reject(err);
           }
-          debug(data);
           resolve(data);
         });
     });
@@ -48,7 +49,6 @@ function outcomeCategoryService() {
         if (err) {
           reject(err);
         }
-        debug(result);
         resolve(result);
       });
     });
@@ -62,7 +62,6 @@ function outcomeCategoryService() {
         if (err) {
           reject(err);
         }
-        debug(result);
         resolve(result);
       });
     });

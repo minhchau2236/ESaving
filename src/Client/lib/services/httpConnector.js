@@ -1,25 +1,30 @@
 import axios from 'axios';
+import { authHeader } from '../helpers/auth-header';
 
 export default class HttpConnector {
   constructor() {
-    this.host = 'http://localhost:3000';
+    this.host = 'http://esaving.com';
     this.get = this.get.bind(this);
   }
 
   get = function (url, handleFunc, errorHandleFunc) {
     const host = this.host;
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
       const getUrl = `${host}${url}`;
-      axios.get(getUrl).then((result) => {
-        let resultData = result.data.data;
+      var headers = authHeader();
+      axios.get(getUrl, {headers}).then(function (result) {
+        let resultData = {};
         if (handleFunc && typeof handleFunc === 'function') {
-          resultData = handleFunc(resultData);
+          resultData = handleFunc(result);
+        } else {
+          resultData = this.handleData(result);
         }
         resolve(resultData);
-      }).catch((error) => {
+      }.bind(this)).catch((error) => {
         if (errorHandleFunc && typeof errorHandleFunc === 'function') {
           error = errorHandleFunc(error);
         }
+        
         reject(error);
       });
     });
@@ -29,17 +34,21 @@ export default class HttpConnector {
     const host = this.host;
     return new Promise(function (resolve, reject) {
       const postUrl = `${host}${url}`;
+      var headers = authHeader();
       axios({
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
+          ...headers
         },
         url: postUrl,
         data,
       }).then((result) => {
-        let resultData = result.data.data;
+        let resultData = {};
         if (handleFunc && typeof handleFunc === 'function') {
-          resultData = handleFunc(resultData);
+          resultData = handleFunc(result);
+        } else {
+          resultData = this.handleData(result);
         }
         resolve(resultData);
       }).catch((error) => {
@@ -55,8 +64,9 @@ export default class HttpConnector {
     const host = this.host;
     return new Promise(function (resolve, reject) {
       const deleteUrl = `${host}${url}/${id}`;
-      axios.delete(deleteUrl).then((result) => {
-        let resultData = result.data.data;
+      var headers = authHeader();
+      axios.delete(deleteUrl, {headers}).then((result) => {
+        let resultData = result.data;
         if (handleFunc && typeof handleFunc === 'function') {
           resultData = handleFunc(resultData);
         }
@@ -68,5 +78,9 @@ export default class HttpConnector {
         reject(error);
       });
     });
+  }
+
+  handleData = (result) => {
+    return result.data;
   }
 }

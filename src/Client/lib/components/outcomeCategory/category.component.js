@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as categoryActions from '../../store/actions/outcomeCategoryActions';
 import { bindActionCreators } from 'redux';
 import CategoryList from './category-list.component';
-// import history from '../../services/history';
+import history from '../../services/history';
 
 class CategoryComponent extends React.Component {
   constructor(props, context) {
@@ -18,6 +18,12 @@ class CategoryComponent extends React.Component {
     // this.onCreate = this.onCreate.bind(this);
   }
 
+  componentDidMount() {
+    if(!this.props.categories || !this.props.categories.length) {
+      this.props.actions.loadCategories();
+    }
+  }
+
   onTitleChange  = (event) => {
     const category = this.state.category;
     category.Name = event.target.value;
@@ -29,7 +35,7 @@ class CategoryComponent extends React.Component {
   }
 
   onCreate = () => {
-    this.props.history.push('/category');
+    history.push('/category');
   }
 
   render() {

@@ -1,12 +1,15 @@
 const express = require('express');
 
 const outcomeCateogryRouter = express.Router();
-const outcomeCategoryController = require('../controllers/outcomeCategoryController');
+const outcomeCategoryController = require('../controllers/OutcomeCategoryController');
 
-function router() {
+const VerifyToken = require('../auth/VerifyToken');
+
+function router(sequelize) {
   const {
     get, save, getById, remove,
-  } = outcomeCategoryController();
+  } = outcomeCategoryController(sequelize);
+  outcomeCateogryRouter.use(VerifyToken);
   outcomeCateogryRouter.route('')
     .get(get)
     .post(save)

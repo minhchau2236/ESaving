@@ -4,16 +4,14 @@ import routes from '../routes';
 import Header from './header/HeaderComponent';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+
 class App extends React.Component {
   render() {
     return (
-      <Router>
-        <div>
-          <h2>ESaving</h2>
-          <Header />
-          {routes}
-        </div>
-      </Router>
+      <div>
+        <Header></Header>
+        {routes}
+      </div>
     );
   }
 }
