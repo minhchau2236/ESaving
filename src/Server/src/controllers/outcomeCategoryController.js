@@ -1,5 +1,4 @@
-
-
+const debug = require('debug')('app:outcomeCategoryController');
 
 function outcomeCategoryController(sequelize) {
   const outcomeCategoryService = require('../services/OutcomeCategoryService')(sequelize);
@@ -15,6 +14,7 @@ function outcomeCategoryController(sequelize) {
 
   function save(req, res) {
     (async function query() {
+      debug(req.body);
       const responseData = await outcomeCategoryService.save(req.body);
       // const result = {
       //   data: responseData,

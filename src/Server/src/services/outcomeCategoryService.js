@@ -5,7 +5,7 @@ function outcomeCategoryService(sequelize) {
   const Category = require('../models/outcomeCategoryModel')(sequelize);
   function get() {
     return new Promise((resolve, reject) => {
-      const request = new sql.Request();
+      // const request = new sql.Request();
       Category.findAll().then((categories) => {
         resolve(categories);
       });
@@ -20,49 +20,43 @@ function outcomeCategoryService(sequelize) {
 
   function save(data) {
     return new Promise((resolve, reject) => {
-      const request = new sql.Request();
-      let queryString = '';
-      if (!data.id) {
-        queryString = `INSERT INTO Category (name)
-        VALUES (@name)`;
-      } else {
-        queryString = `Update Category 
-        set Category.name = @name
-        where Category.id = @id`;
-      }
-      request.input('name', sql.NVarChar, data.name)
-        .input('id', sql.Int, data.id)
-        .query(queryString, (err) => {
-          if (err) {
-            reject(err);
-          }
-          resolve(data);
-        });
+      Category.findById(data.id).then((category) => {
+        if (!category) {
+          return Category.create(data, {fields: ['name']});
+        } else {
+          category.name = data.name;
+          return category.save();
+        }
+      }).then((newCategory) => {
+        resolve(newCategory);
+      }).catch((err) => {
+        reject(err);
+      });
     });
   }
 
   function getById(id) {
     return new Promise((resolve, reject) => {
-      const request = new sql.Request();
-      const sqlQueryString = `select * from Category where id=${id}`;
-      request.query(sqlQueryString, (err, result) => {
-        if (err) {
-          reject(err);
-        }
+      Category.findById(id).then((result) => {
         resolve(result);
-      });
+      }).catch((err) => {
+        reject(err);
+      })
     });
   }
 
   function remove(id) {
     return new Promise((resolve, reject) => {
-      const request = new sql.Request();
-      const sqlQueryString = `delete from Category where id=${id}`;
-      request.query(sqlQueryString, (err, result) => {
-        if (err) {
-          reject(err);
+      Category.findById(id).then((category) => {
+        if (category) {
+          return category.destroy({ force: true });
         }
-        resolve(result);
+        return null;
+      }).then((category) => {
+        debug(category);
+        resolve(category);
+      }).catch((err) => {
+        reject(err);
       });
     });
   }

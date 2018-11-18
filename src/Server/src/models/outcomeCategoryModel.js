@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 function getCategoryModel(sequelize) {
-  return sequelize.define('Category', {
+  let CategoryModel = sequelize.define('Category', {
     id: {
       primaryKey: true,
       type: Sequelize.INTEGER
@@ -12,6 +12,9 @@ function getCategoryModel(sequelize) {
     timestamps: false,
     tableName: 'Category'
   });
+  // CategoryModel.removeAttribute('id');
+
+  return CategoryModel;
 }
 
 module.exports = getCategoryModel;

@@ -49,7 +49,7 @@ sequelize
 
 
 const outcomeCategoryRouter = require('./src/routes/OutcomeCategoryRoutes')(sequelize);
-const authRouter = require('./src/routes/AuthRoutes')();
+const authRouter = require('./src/routes/AuthRoutes')(sequelize);
 
 app.use('/api/category', outcomeCategoryRouter);
 app.use('/api/auth', authRouter);
