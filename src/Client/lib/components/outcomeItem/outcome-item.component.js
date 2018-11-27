@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as categoryActions from '../../store/actions/outcomeCategoryActions';
+import * as outcomeItemActions from '../../store/actions/outcomeItemActions';
 import { bindActionCreators } from 'redux';
-import CategoryList from './outcome-item-list.component';
+import OutcomeItemList from './outcome-item-list.component';
 import history from '../../services/history';
 
 class OutcomeItemComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      category: { name: '' }
+      outcomeItem: { name: '' }
     };
 
     // this.onTitleChange = this.onTitleChange.bind(this);
@@ -19,33 +19,33 @@ class OutcomeItemComponent extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.props.categories || !this.props.categories.length) {
-      this.props.actions.loadCategories();
+    if(!this.props.outcomeItems || !this.props.outcomeItems.length) {
+      this.props.actions.loadOutcomeItems();
     }
   }
 
   onTitleChange  = (event) => {
-    const category = this.state.category;
-    category.Name = event.target.value;
-    this.setState({ category: category });
+    const outcomeItem = this.state.outcomeItem;
+    outcomeItem.Name = event.target.value;
+    this.setState({ outcomeItem: outcomeItem });
   }
 
   onDelete = (id) => {
-    this.props.actions.deleteCategory(id);
+    this.props.actions.deleteOutcomeItem(id);
   }
 
   onCreate = () => {
-    history.push('/category');
+    history.push('/outcomeItem');
   }
 
   render() {
     return (
       <div>
-        <h2>Categories</h2>
-        <input type="button" onClick={this.onCreate} value="Create"></input>
-        <CategoryList categories={this.props.categories} onDelete={this.onDelete} />
+        <h2>OutcomeItems</h2>
+        <input type="button" className="btn btn-primary" onClick={this.onCreate} value="Create"></input>
+        <OutcomeItemList outcomeItems={this.props.outcomeItems} onDelete={this.onDelete} />
         <div>
-          {/* <input type="text" onChange={this.onTitleChange} value={this.state.category.title}></input> */}
+          {/* <input type="text" onChange={this.onTitleChange} value={this.state.outcomeItem.title}></input> */}
           {/* <input type="submit" value="Save" onClick={this.onClickSave}></input> */}
         </div>
       </div>
@@ -55,19 +55,20 @@ class OutcomeItemComponent extends React.Component {
 
 OutcomeItemComponent.propTypes = {
   actions: PropTypes.object.isRequired,
-  categories: PropTypes.array.isRequired,
+  outcomeItems: PropTypes.array,
   history: PropTypes.object
 };
 
+
 function mapStateToProps(state, ownProps) {
   return {
-    categories: state.categories,
+    outcomeItems: state.outcomeItems,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(categoryActions, dispatch)
+    actions: bindActionCreators(outcomeItemActions, dispatch)
   };
 }
 

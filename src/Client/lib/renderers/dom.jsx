@@ -6,10 +6,12 @@ import App from '../components/App';
 import configureStore from '../store/configureStore';
 import { Provider } from 'react-redux';
 import * as outcomeCategoryActions from '../store/actions/outcomeCategoryActions';
+import * as outcomeItemActions from '../store/actions/outcomeItemActions';
 import history from '../services/history';
 
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../assets/css/style.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const store = configureStore();
 store.dispatch(outcomeCategoryActions.loadCategories());

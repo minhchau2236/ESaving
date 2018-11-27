@@ -1,8 +1,9 @@
 const debug = require('debug')('app:outcomeCategoryService');
 const sql = require('mssql');
+const Sequelize = require('sequelize');
 
-function outcomeCategoryService(sequelize) {
-  const Category = require('../models/outcomeCategoryModel')(sequelize);
+function OutcomeCategoryService(db) {
+  const Category = db.outcomeCategory;
   function get() {
     return new Promise((resolve, reject) => {
       // const request = new sql.Request();
@@ -38,6 +39,7 @@ function outcomeCategoryService(sequelize) {
   function getById(id) {
     return new Promise((resolve, reject) => {
       Category.findById(id).then((result) => {
+        debug(result);
         resolve(result);
       }).catch((err) => {
         reject(err);
@@ -53,7 +55,6 @@ function outcomeCategoryService(sequelize) {
         }
         return null;
       }).then((category) => {
-        debug(category);
         resolve(category);
       }).catch((err) => {
         reject(err);
@@ -64,4 +65,4 @@ function outcomeCategoryService(sequelize) {
     get, save, getById, remove,
   };
 }
-module.exports = outcomeCategoryService;
+module.exports = OutcomeCategoryService;

@@ -5,10 +5,10 @@ const outcomeCategoryController = require('../controllers/OutcomeCategoryControl
 
 const VerifyToken = require('../auth/VerifyToken');
 
-function router(sequelize) {
+function router(db) {
   const {
     get, save, getById, remove,
-  } = outcomeCategoryController(sequelize);
+  } = outcomeCategoryController(db);
   outcomeCateogryRouter.use(VerifyToken);
   outcomeCateogryRouter.route('')
     .get(get)

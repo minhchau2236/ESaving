@@ -1,7 +1,7 @@
 const debug = require('debug')('app:outcomeCategoryController');
 
-function outcomeCategoryController(sequelize) {
-  const outcomeCategoryService = require('../services/OutcomeCategoryService')(sequelize);
+function OutcomeCategoryController(db) {
+  const outcomeCategoryService = require('../services/OutcomeCategoryService')(db);
   function get(req, res) {
     (async function query() {
       const responseData = await outcomeCategoryService.get();
@@ -14,7 +14,6 @@ function outcomeCategoryController(sequelize) {
 
   function save(req, res) {
     (async function query() {
-      debug(req.body);
       const responseData = await outcomeCategoryService.save(req.body);
       // const result = {
       //   data: responseData,
@@ -46,4 +45,4 @@ function outcomeCategoryController(sequelize) {
     get, save, getById, remove,
   };
 }
-module.exports = outcomeCategoryController;
+module.exports = OutcomeCategoryController;

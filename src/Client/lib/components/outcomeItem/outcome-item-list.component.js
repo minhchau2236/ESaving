@@ -1,33 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
-const OutcomeItemList = ({categories, onDelete}) => {
-  const categoriesRow = (category, index) => {
+const OutcomeItemList = ({outcomeItems, onDelete}) => {
+  const outcomeItemsRow = (outcomeItem, index) => {
     return <tr key={index}>
-      <td><Link to={`/category/${category.id}`}>{category.name}</Link></td>
-      <td><input type="button" style={{width: '100px'}} value="Delete" onClick={ () => onDelete(category.id)}></input></td>      
+      <td><Link to={`/outcomeItem/${outcomeItem.id}`}>{outcomeItem.name}</Link></td>
+      <td><b>{outcomeItem.amount}</b></td>
+      <td><b>{moment(outcomeItem.actionDate).format('DD/MM/YYYY')}</b></td>
+      <td><input type="button" className="btn btn-danger" value="Delete" onClick={ () => onDelete(outcomeItem.id)}></input></td>      
     </tr>;
   };
   return (
     <div>
       <h2>Out come Item list</h2>
       <table>
-        <thead></thead>
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Amount</td>
+            <td>Date</td>
+            <td>Type</td>
+          </tr>
+        </thead>
         <tbody>
-          {categories.map(categoriesRow)}
+          {outcomeItems.map(outcomeItemsRow)}
         </tbody>
       </table>
    
       <div>
-        {/* <input type="text" onChange={this.onTitleChange} value={this.state.category.title}></input> */}
+        {/* <input type="text" onChange={this.onTitleChange} value={this.state.outcomeItem.title}></input> */}
       </div>
     </div>
   );
 };
 
 OutcomeItemList.propTypes = {
-  categories: PropTypes.array.isRequired,
+  outcomeItems: PropTypes.array.isRequired,
   onDelete: PropTypes.func.isRequired
 };
 

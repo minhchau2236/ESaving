@@ -10,7 +10,7 @@
         "dev": "set NODE_PATH=./lib&& nodemon --exec babel-node lib/server.js --watch",
         "webpack": "webpack -wd",
         "test": "jest --watch",
-        "build-styles": "node-sass --include-path sass lib/assets/scss/style.scss lib/assets/css/style.css" 
+        "build-styles": "node-sass --include-path sass lib/assets/scss/style.scss lib/assets/css/style.css"
     },
     "devDependencies": {
         "babel-eslint": "^8.2.3",
@@ -43,9 +43,11 @@
         "lodash": "^4.17.11",
         "lodash.debounce": "^4.0.8",
         "lodash.pickby": "^4.6.0",
+        "moment": "^2.22.2",
         "node-sass": "^4.9.4",
         "prop-types": "^15.6.2",
         "react": "^16.4.0",
+        "react-datepicker": "^2.0.0",
         "react-dom": "^16.4.0",
         "react-router": "^4.3.1",
         "react-router-dom": "^4.3.1",

@@ -1,24 +1,24 @@
-import { ADD_CATEGORY_SUCCESS, LOAD_CATEGORIES_SUCCESS, CREATE_CATEGORY_SUCCESS, UPDATE_CATEGORY_SUCCESS, DELETE_CATEGORY_SUCCESS } from '../../constants/action-types';
-import OutcomeCategoryService from '../../services/outcomeCategory';
+import { outcomeCategoryConstants } from '../../constants/action-types';
+import OutcomeCategoryService from '../../services/outcomeCategory.service';
 
 export function addCategory(category) {
-  return { type: ADD_CATEGORY_SUCCESS, category };
+  return { type: outcomeCategoryConstants.ADD_CATEGORY_SUCCESS, category };
 } 
 
 export function loadCategoriesSuccess(categories) {
-  return { type: LOAD_CATEGORIES_SUCCESS, categories };
+  return { type: outcomeCategoryConstants.LOAD_CATEGORIES_SUCCESS, categories };
 } 
 
 export function createCategorySuccess(category) {
-  return { type: CREATE_CATEGORY_SUCCESS, category };
+  return { type: outcomeCategoryConstants.CREATE_CATEGORY_SUCCESS, category };
 } 
 
 export function deleteCategorySuccess(id) {
-  return { type: DELETE_CATEGORY_SUCCESS, categoryId: id };
+  return { type: outcomeCategoryConstants.DELETE_CATEGORY_SUCCESS, categoryId: id };
 } 
 
 export function updateCategorySuccess(category) {
-  return { type: UPDATE_CATEGORY_SUCCESS, category };
+  return { type: outcomeCategoryConstants.UPDATE_CATEGORY_SUCCESS, category };
 } 
 
 export function loadCategories() {

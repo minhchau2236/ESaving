@@ -19,9 +19,9 @@ export default (
     <PrivateRoute path="/categories" component={CategoryComponent}></PrivateRoute>
     <PrivateRoute exact path="/category" component={manageCategoryComponent}></PrivateRoute>
     <PrivateRoute path="/category/:id" component={manageCategoryComponent}></PrivateRoute>
-    <PrivateRoute path="/outcomes" component={OutcomeItemComponent}></PrivateRoute>
-    <PrivateRoute exact path="/outcome" component={ManageOutcomeItemComponent}></PrivateRoute>
-    <PrivateRoute path="/outcome/:id" component={ManageOutcomeItemComponent}></PrivateRoute>
+    <PrivateRoute path="/outcomeItems" component={OutcomeItemComponent}></PrivateRoute>
+    <PrivateRoute exact path="/outcomeItem" component={ManageOutcomeItemComponent}></PrivateRoute>
+    <PrivateRoute path="/outcomeItem/:id" component={ManageOutcomeItemComponent}></PrivateRoute>
     <AppRoute path="/login" component={LoginPage} layout={PublicLayout}/>
   </Switch>
 );
