@@ -5,9 +5,6 @@ function OutcomeItemController(db) {
   function get(req, res) {
     (async function query() {
       const responseData = await outcomeItemService.get();
-      // const result = {
-      //   data: responseData.recordset,
-      // };
       res.status(200).json(responseData);
     }());
   }
@@ -15,9 +12,6 @@ function OutcomeItemController(db) {
   function save(req, res) {
     (async function query() {
       const responseData = await outcomeItemService.save(req.body);
-      // const result = {
-      //   data: responseData,
-      // };
       res.status(201).json(responseData);
     }());
   }
@@ -25,9 +19,13 @@ function OutcomeItemController(db) {
   function getById(req, res) {
     (async function query() {
       const responseData = await outcomeItemService.getById(req.params.id);
-      // const result = {
-      //   data: responseData,
-      // };
+      res.status(200).json(responseData);
+    }());
+  }
+
+  function getByOutcomeId(req, res) {
+    (async function query() {
+      const responseData = await outcomeItemService.getByOutcomeId(req.params.outcomeId);
       res.status(200).json(responseData);
     }());
   }
@@ -35,14 +33,11 @@ function OutcomeItemController(db) {
   function remove(req, res) {
     (async function query() {
       const responseData = await outcomeItemService.remove(req.params.id);
-      // const result = {
-      //   data: responseData,
-      // };
       res.status(204).json(responseData);
     }());
   }
   return {
-    get, save, getById, remove,
+    get, save, getById, remove, getByOutcomeId
   };
 }
 module.exports = OutcomeItemController;

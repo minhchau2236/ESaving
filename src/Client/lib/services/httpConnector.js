@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { authHeader } from '../helpers/auth-header';
+import * as config  from '../config';
 
 export default class HttpConnector {
   constructor() {
-    this.host = 'http://localhost:4000';
+    this.host = config.apiHost;
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
     this.delete = this.delete.bind(this);

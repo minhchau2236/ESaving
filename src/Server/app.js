@@ -15,10 +15,12 @@ const db = require('./src/db/models/setupDatabase');
 
 const outcomeCategoryRouter = require('./src/routes/outcomeCategoryRoutes')(db);
 const outcomeItemRouter = require('./src/routes/outcomeItemRoutes')(db);
+const outcomeRouter = require('./src/routes/outcomeRoutes')(db);
 const authRouter = require('./src/routes/AuthRoutes')(db);
 
 app.use('/api/category', outcomeCategoryRouter);
 app.use('/api/outcomeItem', outcomeItemRouter);
+app.use('/api/outcome', outcomeRouter);
 app.use('/api/auth', authRouter);
 
 app.get('/', (req, res) => {

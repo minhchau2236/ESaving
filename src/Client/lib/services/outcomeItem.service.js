@@ -1,6 +1,6 @@
 import axios from 'axios';
 import HttpConnector from './httpConnector';
-import { outcomeItemUrl  } from '../constants/resource-url';
+import { outcomeItemUrl, outcomeItemByOutcomeUrl  } from '../constants/resource-url';
 
 export default class outcomeItemService {
   constructor() {
@@ -9,6 +9,10 @@ export default class outcomeItemService {
 
   getAll() {
     return this.httpConnector.get(outcomeItemUrl);
+  }
+
+  getByOutcomeId(outcomeId) {
+    return this.httpConnector.get(`${outcomeItemByOutcomeUrl}/${outcomeId}`);
   }
 
   save(outcomeItem) {

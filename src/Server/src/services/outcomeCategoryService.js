@@ -39,7 +39,6 @@ function OutcomeCategoryService(db) {
   function getById(id) {
     return new Promise((resolve, reject) => {
       Category.findById(id).then((result) => {
-        debug(result);
         resolve(result);
       }).catch((err) => {
         reject(err);

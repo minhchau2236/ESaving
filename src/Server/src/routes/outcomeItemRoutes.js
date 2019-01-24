@@ -7,7 +7,7 @@ const VerifyToken = require('../auth/VerifyToken');
 
 function router(db) {
   const {
-    get, save, getById, remove,
+    get, save, getById, remove, getByOutcomeId
   } = outcomeItemController(db);
   outcomeCateogryRouter.use(VerifyToken);
   outcomeCateogryRouter.route('')
@@ -17,6 +17,8 @@ function router(db) {
   outcomeCateogryRouter.route('/:id')
     .get(getById)
     .delete(remove);
+  outcomeCateogryRouter.route('/outcome/:outcomeId')
+    .get(getByOutcomeId);
   return outcomeCateogryRouter;
 }
 

@@ -19,18 +19,22 @@ class CategoryComponent extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.props.categories || !this.props.categories.length) {
+    if (!this.props.categories || !this.props.categories.length) {
       this.props.actions.loadCategories();
     }
   }
 
-  onTitleChange  = (event) => {
+  onTitleChange = (event) => {
     const category = this.state.category;
     category.Name = event.target.value;
     this.setState({ category: category });
   }
 
   onDelete = (id) => {
+    let confirmResult = confirm('Do you want to delete this cateogry?');
+    if(!confirmResult) {
+      return;
+    }
     this.props.actions.deleteCategory(id);
   }
 
@@ -61,7 +65,7 @@ CategoryComponent.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    categories: state.categories,
+    categories: state.category.categories,
   };
 }
 

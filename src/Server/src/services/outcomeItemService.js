@@ -1,13 +1,21 @@
 const debug = require('debug')('app:outcomeItemService');
 const sql = require('mssql');
 const Sequelize = require('sequelize');
+const moment = require('moment');
 
 function OutcomeItemService(db) {
   const OutcomeItem = db.outcomeItem;
   function get() {
     return new Promise((resolve, reject) => {
-      OutcomeItem.findAll().then((categories) => {
-        resolve(categories);
+      OutcomeItem.findAll({
+        include: [
+          { model: db.outcomeCategory}
+        ],
+        order: [
+          ['actionDate', 'DESC']
+        ]
+      }).then((outcomeItems) => {
+        resolve(outcomeItems);
       });
     });
   }
@@ -16,13 +24,15 @@ function OutcomeItemService(db) {
     return new Promise((resolve, reject) => {
       OutcomeItem.findByPk(data.id).then(async (outcomeItem) => {
         if (!outcomeItem) {
+          debug(data);
           return OutcomeItem.create(data);
-        } else {
+        } else {          
           outcomeItem.name = data.name;
           outcomeItem.amount = data.amount;
           outcomeItem.description = data.description;
           outcomeItem.outcomeCategoryId = data.outcomeCategoryId;
           outcomeItem.actionDate = data.actionDate;
+          outcomeItem.outcomeId = data.outcomeId;
           const selectedCategory = await db.outcomeCategory.findByPk(data.OutcomeCategoryId);
           if (selectedCategory) {
             outcomeItem.setOutcomeCategory(selectedCategory);
@@ -39,10 +49,24 @@ function OutcomeItemService(db) {
 
   function getById(id) {
     return new Promise((resolve, reject) => {
-      OutcomeItem.findByPk(id, {
+      OutcomeItem.findOne(id, {
         include: [
           { model: db.outcomeCategory}
         ]
+      }).then((result) => {
+        resolve(result);
+      }).catch((err) => {
+        reject(err);
+      })
+    });
+  }
+
+  function getByOutcomeId(outcomeId) {
+    return new Promise((resolve, reject) => {
+      OutcomeItem.findAll({
+        where: {
+          outcomeId: outcomeId
+        }
       }).then((result) => {
         resolve(result);
       }).catch((err) => {
@@ -66,7 +90,7 @@ function OutcomeItemService(db) {
     });
   }
   return {
-    get, save, getById, remove,
+    get, save, getById, remove, getByOutcomeId
   };
 }
 module.exports = OutcomeItemService;

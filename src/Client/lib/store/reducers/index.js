@@ -1,11 +1,13 @@
 import {combineReducers} from 'redux';
-import categories from './outcomeCategoryReducer';
-import outcomeItems from './outcomeItemReducer';
+import category from './outcomeCategoryReducer';
+import outcomeItem from './outcomeItemReducer';
+import outcome from './outcomeReducer';
 import { authReducer as authentication } from './auth.reducer';
 
 const rootReducer = combineReducers({
-  categories,
-  outcomeItems,
+  category,
+  outcomeItem,
+  outcome,
   authentication
 });
 

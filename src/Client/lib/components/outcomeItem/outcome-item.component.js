@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as outcomeItemActions from '../../store/actions/outcomeItemActions';
+import * as outcomeActions from '../../store/actions/outcomeActions';
 import { bindActionCreators } from 'redux';
 import OutcomeItemList from './outcome-item-list.component';
 import history from '../../services/history';
+import { getSelectedOutcome } from '../../store/selectors';
 
 class OutcomeItemComponent extends React.Component {
   constructor(props, context) {
@@ -12,15 +14,16 @@ class OutcomeItemComponent extends React.Component {
     this.state = {
       outcomeItem: { name: '' }
     };
-
-    // this.onTitleChange = this.onTitleChange.bind(this);
-    // this.onDelete = this.onDelete.bind(this);
-    // this.onCreate = this.onCreate.bind(this);
   }
 
   componentDidMount() {
-    if(!this.props.outcomeItems || !this.props.outcomeItems.length) {
+    if(!this.props.outcomeId) {
       this.props.actions.loadOutcomeItems();
+    } else {
+      this.props.actions.loadOutcomeItemsByOutcomeId(this.props.outcomeId);
+    }
+    if(!this.props.selectedOutcome) {
+      this.props.outcomeActions.getOutcomeById(this.props.outcomeId);
     }
   }
 
@@ -31,11 +34,14 @@ class OutcomeItemComponent extends React.Component {
   }
 
   onDelete = (id) => {
-    this.props.actions.deleteOutcomeItem(id);
+    let confirmResult = confirm('Do you really want to delete this item?');
+    if(confirmResult) {
+      this.props.actions.deleteOutcomeItem(id);
+    }
   }
 
   onCreate = () => {
-    history.push('/outcomeItem');
+    history.push(`/outcomeItem/outcome/${this.props.outcomeId}`);
   }
 
   render() {
@@ -43,7 +49,7 @@ class OutcomeItemComponent extends React.Component {
       <div>
         <h2>OutcomeItems</h2>
         <input type="button" className="btn btn-primary" onClick={this.onCreate} value="Create"></input>
-        <OutcomeItemList outcomeItems={this.props.outcomeItems} onDelete={this.onDelete} />
+        <OutcomeItemList outcomeItems={this.props.outcomeItems} selectedOutcome={this.props.selectedOutcome} onDelete={this.onDelete} />
         <div>
           {/* <input type="text" onChange={this.onTitleChange} value={this.state.outcomeItem.title}></input> */}
           {/* <input type="submit" value="Save" onClick={this.onClickSave}></input> */}
@@ -62,13 +68,16 @@ OutcomeItemComponent.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    outcomeItems: state.outcomeItems,
+    outcomeItems: state.outcomeItem.outcomeItems,
+    selectedOutcome: getSelectedOutcome(state, ownProps.match.params),
+    outcomeId: ownProps.match.params.outcomeId
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(outcomeItemActions, dispatch)
+    actions: bindActionCreators(outcomeItemActions, dispatch),
+    outcomeActions: bindActionCreators(outcomeActions, dispatch)
   };
 }
 

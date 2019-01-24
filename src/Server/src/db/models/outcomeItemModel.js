@@ -5,10 +5,12 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     actionDate: DataTypes.DATE,
-    amount: DataTypes.INTEGER
+    amount: DataTypes.INTEGER,
+    outcomeId: DataTypes.INTEGER
   }, {});
   OutcomeItem.associate = function(models) {
     OutcomeItem.belongsTo(models.outcomeCategory);
+    OutcomeItem.belongsTo(models.outcome);
   };
   return OutcomeItem;
 };

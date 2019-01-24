@@ -75,8 +75,8 @@ function getCategoryById(categories, id) {
 function mapStateToProps(state, ownProps) {
   const categoryId = ownProps.match.params.id;
   let category= { name: '' };
-  if(categoryId && state.categories.length) {
-    category = getCategoryById(state.categories, categoryId);
+  if(categoryId && state.category.categories.length) {
+    category = getCategoryById(state.category.categories, categoryId);
   }
   return {
     category: category,

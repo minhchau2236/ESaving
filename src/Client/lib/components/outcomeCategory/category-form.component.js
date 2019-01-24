@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../commons/text-Input';
 
-const CategoryForm= ({category, onSave, onChange, loading, errors, onDatePickerChange}) => {
+const CategoryForm= ({category, onSave, onChange, loading, errors}) => {
   return (
     <form>
       <h1>Manage Category</h1>

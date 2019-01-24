@@ -32,6 +32,16 @@ export function loadOutcomeItems() {
   };
 }
 
+export function loadOutcomeItemsByOutcomeId(outcomeId) {
+  return function(dispatch) {
+    outcomeItemService.getByOutcomeId(outcomeId).then((outcomes) => {
+      dispatch(loadOutcomeItemsSuccess(outcomes));
+    }).catch((error)=>{
+      throw(error);
+    });
+  };
+}
+
 export function saveOutcomeItem(outcomeItem) {
   return function(dispatch) {
     outcomeItemService.save(outcomeItem).then((savedOutcomeItem) => {

@@ -6,7 +6,7 @@
     "author": "Minh Chau",
     "license": "MIT",
     "scripts": {
-        "start": "npm run dev&& npm run webpack",
+        "start": "npm run dev && npm run webpack",
         "dev": "set NODE_PATH=./lib&& nodemon --exec babel-node lib/server.js --watch",
         "webpack": "webpack -wd",
         "test": "jest --watch",
@@ -55,6 +55,7 @@
         "redux": "^4.0.0",
         "redux-immutable-state-invariant": "^2.1.0",
         "redux-thunk": "^2.3.0",
+        "reselect": "^4.0.0",
         "style-loader": "^0.23.1",
         "webpack": "^4.10.2"
     }
