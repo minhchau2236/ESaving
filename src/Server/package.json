@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "set DEBUG=app,app:* & nodemon app.js"
+        "start": "set DEBUG=app,app:* & nodemon app.js",
+        "migrateDB": "sequelize db:migrate",
+        "migrateDBFromRoot": "cd src/db & sequelize db:migrate"
     },
     "author": "Minh Chau",
     "license": "ISC",
@@ -23,6 +25,7 @@
         "mysql": "^2.16.0",
         "mysql2": "^1.6.4",
         "nodemon": "^1.18.4",
+        "pg": "^7.9.0",
         "sequelize": "^4.41.2",
         "tedious": "^3.0.1"
     },

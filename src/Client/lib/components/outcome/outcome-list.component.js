@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import DataTable from '../commons/data-table';
 
 const OutcomeList = ({outcomes, onDelete, onEdit}) => {
   const outcomesRow = (outcome, index) => {
@@ -14,25 +15,32 @@ const OutcomeList = ({outcomes, onDelete, onEdit}) => {
       </td>         
     </tr>;
   };
+  const getDataTableData = (dataList) => {
+    const tableData = {
+      columns: [{
+        name: 'Name', key: 'name'
+      },
+      {
+        name: 'Date', key: 'actionDate'
+      },
+      {
+        name: 'Description', key: 'description'
+      }],
+      rows: []
+    };
+    for(let item of dataList) {
+      let newRow = {
+        ...item,
+        actionDate: moment(item.actionDate).format('DD/MM/YYYY')
+      };
+      tableData.rows.push(newRow);
+    }
+    return tableData;
+  };
   return (
     <div>
       <h2>Out come Item list</h2>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <td>Name</td>
-            <td>Date</td>
-            <td>Description</td>
-          </tr>
-        </thead>
-        <tbody>
-          {outcomes.map(outcomesRow)}
-        </tbody>
-      </table>
-   
-      <div>
-        {/* <input type="text" onChange={this.onTitleChange} value={this.state.outcome.title}></input> */}
-      </div>
+      <DataTable data={getDataTableData(outcomes)}></DataTable>
     </div>
   );
 };
