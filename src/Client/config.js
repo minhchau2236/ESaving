@@ -1,5 +1,5 @@
 module.exports = {
   port: process.env.PORT || 8000,
   host: process.env.HOST || 'localhost',
-  apiHost: 'http://api.esaving.com'
+  apiHost: 'http://localhost:4000'
 };
